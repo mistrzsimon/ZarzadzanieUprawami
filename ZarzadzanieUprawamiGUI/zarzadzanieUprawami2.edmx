@@ -1,0 +1,1073 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="zarzadzanieUprawami2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Gatunki">
+          <Key>
+            <PropertyRef Name="idGatunek" />
+          </Key>
+          <Property Name="idGatunek" Type="int" Nullable="false" />
+          <Property Name="nazwa" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Gleby">
+          <Key>
+            <PropertyRef Name="idGleba" />
+          </Key>
+          <Property Name="idGleba" Type="int" Nullable="false" />
+          <Property Name="rodzaj" Type="varchar" MaxLength="25" />
+        </EntityType>
+        <EntityType Name="Magazyn">
+          <Key>
+            <PropertyRef Name="idEwidencja" />
+          </Key>
+          <Property Name="idEwidencja" Type="int" Nullable="false" />
+          <Property Name="idZasób" Type="int" />
+          <Property Name="ilosc" Type="int" />
+        </EntityType>
+        <EntityType Name="Obszary">
+          <Key>
+            <PropertyRef Name="idObszar" />
+          </Key>
+          <Property Name="idObszar" Type="int" Nullable="false" />
+          <Property Name="powierzchniaHa" Type="float" />
+          <Property Name="szer_geo" Type="float" />
+          <Property Name="dl_geo" Type="float" />
+        </EntityType>
+        <EntityType Name="Odmiany">
+          <Key>
+            <PropertyRef Name="idOdmiana" />
+          </Key>
+          <Property Name="idOdmiana" Type="int" Nullable="false" />
+          <Property Name="nazwa" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Okresowosci">
+          <Key>
+            <PropertyRef Name="idOkresowosc" />
+          </Key>
+          <Property Name="idOkresowosc" Type="int" Nullable="false" />
+          <Property Name="rodzaj" Type="varchar" MaxLength="25" />
+        </EntityType>
+        <EntityType Name="Pola">
+          <Key>
+            <PropertyRef Name="idPole" />
+          </Key>
+          <Property Name="idPole" Type="int" Nullable="false" />
+          <Property Name="idObszar" Type="int" />
+          <Property Name="klasa" Type="int" />
+          <Property Name="idGleba" Type="int" />
+        </EntityType>
+        <EntityType Name="PracePolowe">
+          <Key>
+            <PropertyRef Name="idPracaPolowa" />
+          </Key>
+          <Property Name="idPracaPolowa" Type="int" Nullable="false" />
+          <Property Name="idPoleUprawa" Type="int" />
+          <Property Name="idWykonawca" Type="int" />
+          <Property Name="idPraca" Type="int" />
+          <Property Name="dataWykonanejPracy" Type="date" />
+        </EntityType>
+        <EntityType Name="PraceZasoby">
+          <Key>
+            <PropertyRef Name="idPracaZasób" />
+          </Key>
+          <Property Name="idPracaZasób" Type="int" Nullable="false" />
+          <Property Name="idPracaPolowa" Type="int" />
+          <Property Name="idZasób" Type="int" />
+          <Property Name="ilośćZużytegoZasobu" Type="int" />
+        </EntityType>
+        <EntityType Name="Pracownicy">
+          <Key>
+            <PropertyRef Name="idPracownik" />
+          </Key>
+          <Property Name="idPracownik" Type="int" Nullable="false" />
+          <Property Name="imię" Type="varchar" MaxLength="20" />
+          <Property Name="nazwisko" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Producenci">
+          <Key>
+            <PropertyRef Name="idProducent" />
+          </Key>
+          <Property Name="idProducent" Type="int" Nullable="false" />
+          <Property Name="nazwa" Type="text" />
+        </EntityType>
+        <EntityType Name="RodzajePrac">
+          <Key>
+            <PropertyRef Name="idPraca" />
+          </Key>
+          <Property Name="idPraca" Type="int" Nullable="false" />
+          <Property Name="nazwa" Type="text" />
+        </EntityType>
+        <EntityType Name="Rosliny">
+          <Key>
+            <PropertyRef Name="idRoslina" />
+          </Key>
+          <Property Name="idRoslina" Type="int" Nullable="false" />
+          <Property Name="idGatunek" Type="int" />
+          <Property Name="idOdmiana" Type="int" />
+          <Property Name="idOkresowosc" Type="int" />
+          <Property Name="doplatyHa" Type="float" />
+          <Property Name="siewKgHa" Type="int" />
+          <Property Name="zbiorKgHa" Type="float" />
+          <Property Name="wartoscKg" Type="float" />
+          <Property Name="kosztOchronyHa" Type="float" />
+          <Property Name="koszNawozuHa" Type="float" />
+          <Property Name="kosztZbioruHa" Type="float" />
+        </EntityType>
+        <EntityType Name="StanyPola">
+          <Key>
+            <PropertyRef Name="idStan" />
+          </Key>
+          <Property Name="idStan" Type="int" Nullable="false" />
+          <Property Name="nazwa" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="StanyUpraw">
+          <Key>
+            <PropertyRef Name="idUprawaStan" />
+          </Key>
+          <Property Name="idUprawaStan" Type="int" Nullable="false" />
+          <Property Name="idUprawa" Type="int" />
+          <Property Name="idStan" Type="int" />
+        </EntityType>
+        <EntityType Name="Uprawy">
+          <Key>
+            <PropertyRef Name="idUprawa" />
+          </Key>
+          <Property Name="idUprawa" Type="int" Nullable="false" />
+          <Property Name="idPole" Type="int" />
+          <Property Name="idRoslina" Type="int" />
+          <Property Name="dataPoczatkowa" Type="datetime" />
+          <Property Name="dataKoncowa" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Zasób">
+          <Key>
+            <PropertyRef Name="idZasób" />
+          </Key>
+          <Property Name="idZasób" Type="int" Nullable="false" />
+          <Property Name="NazwaZasobu" Type="varchar" MaxLength="20" />
+          <Property Name="idProducent" Type="int" />
+        </EntityType>
+        <Association Name="FK__Pola__idGleba__6C190EBB">
+          <End Role="Gleby" Type="Self.Gleby" Multiplicity="0..1" />
+          <End Role="Pola" Type="Self.Pola" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gleby">
+              <PropertyRef Name="idGleba" />
+            </Principal>
+            <Dependent Role="Pola">
+              <PropertyRef Name="idGleba" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pola__idObszar__6B24EA82">
+          <End Role="Obszary" Type="Self.Obszary" Multiplicity="0..1" />
+          <End Role="Pola" Type="Self.Pola" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Obszary">
+              <PropertyRef Name="idObszar" />
+            </Principal>
+            <Dependent Role="Pola">
+              <PropertyRef Name="idObszar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PracePolo__idPol__0E6E26BF">
+          <End Role="Uprawy" Type="Self.Uprawy" Multiplicity="0..1" />
+          <End Role="PracePolowe" Type="Self.PracePolowe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Uprawy">
+              <PropertyRef Name="idUprawa" />
+            </Principal>
+            <Dependent Role="PracePolowe">
+              <PropertyRef Name="idPoleUprawa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PracePolo__idPra__10566F31">
+          <End Role="RodzajePrac" Type="Self.RodzajePrac" Multiplicity="0..1" />
+          <End Role="PracePolowe" Type="Self.PracePolowe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RodzajePrac">
+              <PropertyRef Name="idPraca" />
+            </Principal>
+            <Dependent Role="PracePolowe">
+              <PropertyRef Name="idPraca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PracePolo__idWyk__0F624AF8">
+          <End Role="Pracownicy" Type="Self.Pracownicy" Multiplicity="0..1" />
+          <End Role="PracePolowe" Type="Self.PracePolowe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pracownicy">
+              <PropertyRef Name="idPracownik" />
+            </Principal>
+            <Dependent Role="PracePolowe">
+              <PropertyRef Name="idWykonawca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PraceZaso__idPra__1332DBDC">
+          <End Role="PracePolowe" Type="Self.PracePolowe" Multiplicity="0..1" />
+          <End Role="PraceZasoby" Type="Self.PraceZasoby" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PracePolowe">
+              <PropertyRef Name="idPracaPolowa" />
+            </Principal>
+            <Dependent Role="PraceZasoby">
+              <PropertyRef Name="idPracaPolowa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PraceZaso__idZas__14270015">
+          <End Role="Zasób" Type="Self.Zasób" Multiplicity="0..1" />
+          <End Role="PraceZasoby" Type="Self.PraceZasoby" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zasób">
+              <PropertyRef Name="idZasób" />
+            </Principal>
+            <Dependent Role="PraceZasoby">
+              <PropertyRef Name="idZasób" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Rosliny__idGatun__74AE54BC">
+          <End Role="Gatunki" Type="Self.Gatunki" Multiplicity="0..1" />
+          <End Role="Rosliny" Type="Self.Rosliny" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gatunki">
+              <PropertyRef Name="idGatunek" />
+            </Principal>
+            <Dependent Role="Rosliny">
+              <PropertyRef Name="idGatunek" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Rosliny__idOdmia__75A278F5">
+          <End Role="Odmiany" Type="Self.Odmiany" Multiplicity="0..1" />
+          <End Role="Rosliny" Type="Self.Rosliny" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Odmiany">
+              <PropertyRef Name="idOdmiana" />
+            </Principal>
+            <Dependent Role="Rosliny">
+              <PropertyRef Name="idOdmiana" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Rosliny__idOkres__76969D2E">
+          <End Role="Okresowosci" Type="Self.Okresowosci" Multiplicity="0..1" />
+          <End Role="Rosliny" Type="Self.Rosliny" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Okresowosci">
+              <PropertyRef Name="idOkresowosc" />
+            </Principal>
+            <Dependent Role="Rosliny">
+              <PropertyRef Name="idOkresowosc" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StanyUpra__idSta__00200768">
+          <End Role="StanyPola" Type="Self.StanyPola" Multiplicity="0..1" />
+          <End Role="StanyUpraw" Type="Self.StanyUpraw" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StanyPola">
+              <PropertyRef Name="idStan" />
+            </Principal>
+            <Dependent Role="StanyUpraw">
+              <PropertyRef Name="idStan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StanyUpra__idUpr__7F2BE32F">
+          <End Role="Uprawy" Type="Self.Uprawy" Multiplicity="0..1" />
+          <End Role="StanyUpraw" Type="Self.StanyUpraw" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Uprawy">
+              <PropertyRef Name="idUprawa" />
+            </Principal>
+            <Dependent Role="StanyUpraw">
+              <PropertyRef Name="idUprawa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Uprawy__idPole__7B5B524B">
+          <End Role="Pola" Type="Self.Pola" Multiplicity="0..1" />
+          <End Role="Uprawy" Type="Self.Uprawy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pola">
+              <PropertyRef Name="idPole" />
+            </Principal>
+            <Dependent Role="Uprawy">
+              <PropertyRef Name="idPole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Uprawy__idRoslin__7C4F7684">
+          <End Role="Rosliny" Type="Self.Rosliny" Multiplicity="0..1" />
+          <End Role="Uprawy" Type="Self.Uprawy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rosliny">
+              <PropertyRef Name="idRoslina" />
+            </Principal>
+            <Dependent Role="Uprawy">
+              <PropertyRef Name="idRoslina" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Zasób__idProduce__0B91BA14">
+          <End Role="Producenci" Type="Self.Producenci" Multiplicity="0..1" />
+          <End Role="Zasób" Type="Self.Zasób" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producenci">
+              <PropertyRef Name="idProducent" />
+            </Principal>
+            <Dependent Role="Zasób">
+              <PropertyRef Name="idProducent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Zasób__idZasób__0A9D95DB">
+          <End Role="Magazyn" Type="Self.Magazyn" Multiplicity="1" />
+          <End Role="Zasób" Type="Self.Zasób" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Magazyn">
+              <PropertyRef Name="idEwidencja" />
+            </Principal>
+            <Dependent Role="Zasób">
+              <PropertyRef Name="idZasób" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="zarzadzanieUprawami2ModelStoreContainer">
+          <EntitySet Name="Gatunki" EntityType="Self.Gatunki" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Gleby" EntityType="Self.Gleby" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Magazyn" EntityType="Self.Magazyn" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Obszary" EntityType="Self.Obszary" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Odmiany" EntityType="Self.Odmiany" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Okresowosci" EntityType="Self.Okresowosci" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pola" EntityType="Self.Pola" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PracePolowe" EntityType="Self.PracePolowe" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PraceZasoby" EntityType="Self.PraceZasoby" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pracownicy" EntityType="Self.Pracownicy" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Producenci" EntityType="Self.Producenci" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RodzajePrac" EntityType="Self.RodzajePrac" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rosliny" EntityType="Self.Rosliny" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StanyPola" EntityType="Self.StanyPola" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StanyUpraw" EntityType="Self.StanyUpraw" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Uprawy" EntityType="Self.Uprawy" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Zasób" EntityType="Self.Zasób" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Pola__idGleba__6C190EBB" Association="Self.FK__Pola__idGleba__6C190EBB">
+            <End Role="Gleby" EntitySet="Gleby" />
+            <End Role="Pola" EntitySet="Pola" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pola__idObszar__6B24EA82" Association="Self.FK__Pola__idObszar__6B24EA82">
+            <End Role="Obszary" EntitySet="Obszary" />
+            <End Role="Pola" EntitySet="Pola" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PracePolo__idPol__0E6E26BF" Association="Self.FK__PracePolo__idPol__0E6E26BF">
+            <End Role="Uprawy" EntitySet="Uprawy" />
+            <End Role="PracePolowe" EntitySet="PracePolowe" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PracePolo__idPra__10566F31" Association="Self.FK__PracePolo__idPra__10566F31">
+            <End Role="RodzajePrac" EntitySet="RodzajePrac" />
+            <End Role="PracePolowe" EntitySet="PracePolowe" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PracePolo__idWyk__0F624AF8" Association="Self.FK__PracePolo__idWyk__0F624AF8">
+            <End Role="Pracownicy" EntitySet="Pracownicy" />
+            <End Role="PracePolowe" EntitySet="PracePolowe" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PraceZaso__idPra__1332DBDC" Association="Self.FK__PraceZaso__idPra__1332DBDC">
+            <End Role="PracePolowe" EntitySet="PracePolowe" />
+            <End Role="PraceZasoby" EntitySet="PraceZasoby" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PraceZaso__idZas__14270015" Association="Self.FK__PraceZaso__idZas__14270015">
+            <End Role="Zasób" EntitySet="Zasób" />
+            <End Role="PraceZasoby" EntitySet="PraceZasoby" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rosliny__idGatun__74AE54BC" Association="Self.FK__Rosliny__idGatun__74AE54BC">
+            <End Role="Gatunki" EntitySet="Gatunki" />
+            <End Role="Rosliny" EntitySet="Rosliny" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rosliny__idOdmia__75A278F5" Association="Self.FK__Rosliny__idOdmia__75A278F5">
+            <End Role="Odmiany" EntitySet="Odmiany" />
+            <End Role="Rosliny" EntitySet="Rosliny" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rosliny__idOkres__76969D2E" Association="Self.FK__Rosliny__idOkres__76969D2E">
+            <End Role="Okresowosci" EntitySet="Okresowosci" />
+            <End Role="Rosliny" EntitySet="Rosliny" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StanyUpra__idSta__00200768" Association="Self.FK__StanyUpra__idSta__00200768">
+            <End Role="StanyPola" EntitySet="StanyPola" />
+            <End Role="StanyUpraw" EntitySet="StanyUpraw" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StanyUpra__idUpr__7F2BE32F" Association="Self.FK__StanyUpra__idUpr__7F2BE32F">
+            <End Role="Uprawy" EntitySet="Uprawy" />
+            <End Role="StanyUpraw" EntitySet="StanyUpraw" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Uprawy__idPole__7B5B524B" Association="Self.FK__Uprawy__idPole__7B5B524B">
+            <End Role="Pola" EntitySet="Pola" />
+            <End Role="Uprawy" EntitySet="Uprawy" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Uprawy__idRoslin__7C4F7684" Association="Self.FK__Uprawy__idRoslin__7C4F7684">
+            <End Role="Rosliny" EntitySet="Rosliny" />
+            <End Role="Uprawy" EntitySet="Uprawy" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Zasób__idProduce__0B91BA14" Association="Self.FK__Zasób__idProduce__0B91BA14">
+            <End Role="Producenci" EntitySet="Producenci" />
+            <End Role="Zasób" EntitySet="Zasób" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Zasób__idZasób__0A9D95DB" Association="Self.FK__Zasób__idZasób__0A9D95DB">
+            <End Role="Magazyn" EntitySet="Magazyn" />
+            <End Role="Zasób" EntitySet="Zasób" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="zarzadzanieUprawami2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Gatunki">
+          <Key>
+            <PropertyRef Name="idGatunek" />
+          </Key>
+          <Property Name="idGatunek" Type="Int32" Nullable="false" />
+          <Property Name="nazwa" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Rosliny" Relationship="Self.FK__Rosliny__idGatun__74AE54BC" FromRole="Gatunki" ToRole="Rosliny" />
+        </EntityType>
+        <EntityType Name="Gleby">
+          <Key>
+            <PropertyRef Name="idGleba" />
+          </Key>
+          <Property Name="idGleba" Type="Int32" Nullable="false" />
+          <Property Name="rodzaj" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Pola" Relationship="Self.FK__Pola__idGleba__6C190EBB" FromRole="Gleby" ToRole="Pola" />
+        </EntityType>
+        <EntityType Name="Magazyn">
+          <Key>
+            <PropertyRef Name="idEwidencja" />
+          </Key>
+          <Property Name="idEwidencja" Type="Int32" Nullable="false" />
+          <Property Name="idZasób" Type="Int32" />
+          <Property Name="ilosc" Type="Int32" />
+          <NavigationProperty Name="Zasób" Relationship="Self.FK__Zasób__idZasób__0A9D95DB" FromRole="Magazyn" ToRole="Zasób" />
+        </EntityType>
+        <EntityType Name="Obszary">
+          <Key>
+            <PropertyRef Name="idObszar" />
+          </Key>
+          <Property Name="idObszar" Type="Int32" Nullable="false" />
+          <Property Name="powierzchniaHa" Type="Double" />
+          <Property Name="szer_geo" Type="Double" />
+          <Property Name="dl_geo" Type="Double" />
+          <NavigationProperty Name="Pola" Relationship="Self.FK__Pola__idObszar__6B24EA82" FromRole="Obszary" ToRole="Pola" />
+        </EntityType>
+        <EntityType Name="Odmiany">
+          <Key>
+            <PropertyRef Name="idOdmiana" />
+          </Key>
+          <Property Name="idOdmiana" Type="Int32" Nullable="false" />
+          <Property Name="nazwa" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Rosliny" Relationship="Self.FK__Rosliny__idOdmia__75A278F5" FromRole="Odmiany" ToRole="Rosliny" />
+        </EntityType>
+        <EntityType Name="Okresowosci">
+          <Key>
+            <PropertyRef Name="idOkresowosc" />
+          </Key>
+          <Property Name="idOkresowosc" Type="Int32" Nullable="false" />
+          <Property Name="rodzaj" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Rosliny" Relationship="Self.FK__Rosliny__idOkres__76969D2E" FromRole="Okresowosci" ToRole="Rosliny" />
+        </EntityType>
+        <EntityType Name="Pola">
+          <Key>
+            <PropertyRef Name="idPole" />
+          </Key>
+          <Property Name="idPole" Type="Int32" Nullable="false" />
+          <Property Name="idObszar" Type="Int32" />
+          <Property Name="klasa" Type="Int32" />
+          <Property Name="idGleba" Type="Int32" />
+          <NavigationProperty Name="Gleby" Relationship="Self.FK__Pola__idGleba__6C190EBB" FromRole="Pola" ToRole="Gleby" />
+          <NavigationProperty Name="Obszary" Relationship="Self.FK__Pola__idObszar__6B24EA82" FromRole="Pola" ToRole="Obszary" />
+          <NavigationProperty Name="Uprawy" Relationship="Self.FK__Uprawy__idPole__7B5B524B" FromRole="Pola" ToRole="Uprawy" />
+        </EntityType>
+        <EntityType Name="PracePolowe">
+          <Key>
+            <PropertyRef Name="idPracaPolowa" />
+          </Key>
+          <Property Name="idPracaPolowa" Type="Int32" Nullable="false" />
+          <Property Name="idPoleUprawa" Type="Int32" />
+          <Property Name="idWykonawca" Type="Int32" />
+          <Property Name="idPraca" Type="Int32" />
+          <Property Name="dataWykonanejPracy" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Uprawy" Relationship="Self.FK__PracePolo__idPol__0E6E26BF" FromRole="PracePolowe" ToRole="Uprawy" />
+          <NavigationProperty Name="RodzajePrac" Relationship="Self.FK__PracePolo__idPra__10566F31" FromRole="PracePolowe" ToRole="RodzajePrac" />
+          <NavigationProperty Name="Pracownicy" Relationship="Self.FK__PracePolo__idWyk__0F624AF8" FromRole="PracePolowe" ToRole="Pracownicy" />
+          <NavigationProperty Name="PraceZasoby" Relationship="Self.FK__PraceZaso__idPra__1332DBDC" FromRole="PracePolowe" ToRole="PraceZasoby" />
+        </EntityType>
+        <EntityType Name="PraceZasoby">
+          <Key>
+            <PropertyRef Name="idPracaZasób" />
+          </Key>
+          <Property Name="idPracaZasób" Type="Int32" Nullable="false" />
+          <Property Name="idPracaPolowa" Type="Int32" />
+          <Property Name="idZasób" Type="Int32" />
+          <Property Name="ilośćZużytegoZasobu" Type="Int32" />
+          <NavigationProperty Name="PracePolowe" Relationship="Self.FK__PraceZaso__idPra__1332DBDC" FromRole="PraceZasoby" ToRole="PracePolowe" />
+          <NavigationProperty Name="Zasób" Relationship="Self.FK__PraceZaso__idZas__14270015" FromRole="PraceZasoby" ToRole="Zasób" />
+        </EntityType>
+        <EntityType Name="Pracownicy">
+          <Key>
+            <PropertyRef Name="idPracownik" />
+          </Key>
+          <Property Name="idPracownik" Type="Int32" Nullable="false" />
+          <Property Name="imię" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="nazwisko" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PracePolowe" Relationship="Self.FK__PracePolo__idWyk__0F624AF8" FromRole="Pracownicy" ToRole="PracePolowe" />
+        </EntityType>
+        <EntityType Name="Producenci">
+          <Key>
+            <PropertyRef Name="idProducent" />
+          </Key>
+          <Property Name="idProducent" Type="Int32" Nullable="false" />
+          <Property Name="nazwa" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Zasób" Relationship="Self.FK__Zasób__idProduce__0B91BA14" FromRole="Producenci" ToRole="Zasób" />
+        </EntityType>
+        <EntityType Name="RodzajePrac">
+          <Key>
+            <PropertyRef Name="idPraca" />
+          </Key>
+          <Property Name="idPraca" Type="Int32" Nullable="false" />
+          <Property Name="nazwa" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="PracePolowe" Relationship="Self.FK__PracePolo__idPra__10566F31" FromRole="RodzajePrac" ToRole="PracePolowe" />
+        </EntityType>
+        <EntityType Name="Rosliny">
+          <Key>
+            <PropertyRef Name="idRoslina" />
+          </Key>
+          <Property Name="idRoslina" Type="Int32" Nullable="false" />
+          <Property Name="idGatunek" Type="Int32" />
+          <Property Name="idOdmiana" Type="Int32" />
+          <Property Name="idOkresowosc" Type="Int32" />
+          <Property Name="doplatyHa" Type="Double" />
+          <Property Name="siewKgHa" Type="Int32" />
+          <Property Name="zbiorKgHa" Type="Double" />
+          <Property Name="wartoscKg" Type="Double" />
+          <Property Name="kosztOchronyHa" Type="Double" />
+          <Property Name="koszNawozuHa" Type="Double" />
+          <Property Name="kosztZbioruHa" Type="Double" />
+          <NavigationProperty Name="Gatunki" Relationship="Self.FK__Rosliny__idGatun__74AE54BC" FromRole="Rosliny" ToRole="Gatunki" />
+          <NavigationProperty Name="Odmiany" Relationship="Self.FK__Rosliny__idOdmia__75A278F5" FromRole="Rosliny" ToRole="Odmiany" />
+          <NavigationProperty Name="Okresowosci" Relationship="Self.FK__Rosliny__idOkres__76969D2E" FromRole="Rosliny" ToRole="Okresowosci" />
+          <NavigationProperty Name="Uprawy" Relationship="Self.FK__Uprawy__idRoslin__7C4F7684" FromRole="Rosliny" ToRole="Uprawy" />
+        </EntityType>
+        <EntityType Name="StanyPola">
+          <Key>
+            <PropertyRef Name="idStan" />
+          </Key>
+          <Property Name="idStan" Type="Int32" Nullable="false" />
+          <Property Name="nazwa" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="StanyUpraw" Relationship="Self.FK__StanyUpra__idSta__00200768" FromRole="StanyPola" ToRole="StanyUpraw" />
+        </EntityType>
+        <EntityType Name="StanyUpraw">
+          <Key>
+            <PropertyRef Name="idUprawaStan" />
+          </Key>
+          <Property Name="idUprawaStan" Type="Int32" Nullable="false" />
+          <Property Name="idUprawa" Type="Int32" />
+          <Property Name="idStan" Type="Int32" />
+          <NavigationProperty Name="StanyPola" Relationship="Self.FK__StanyUpra__idSta__00200768" FromRole="StanyUpraw" ToRole="StanyPola" />
+          <NavigationProperty Name="Uprawy" Relationship="Self.FK__StanyUpra__idUpr__7F2BE32F" FromRole="StanyUpraw" ToRole="Uprawy" />
+        </EntityType>
+        <EntityType Name="Uprawy">
+          <Key>
+            <PropertyRef Name="idUprawa" />
+          </Key>
+          <Property Name="idUprawa" Type="Int32" Nullable="false" />
+          <Property Name="idPole" Type="Int32" />
+          <Property Name="idRoslina" Type="Int32" />
+          <Property Name="dataPoczatkowa" Type="DateTime" Precision="3" />
+          <Property Name="dataKoncowa" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Pola" Relationship="Self.FK__Uprawy__idPole__7B5B524B" FromRole="Uprawy" ToRole="Pola" />
+          <NavigationProperty Name="PracePolowe" Relationship="Self.FK__PracePolo__idPol__0E6E26BF" FromRole="Uprawy" ToRole="PracePolowe" />
+          <NavigationProperty Name="Rosliny" Relationship="Self.FK__Uprawy__idRoslin__7C4F7684" FromRole="Uprawy" ToRole="Rosliny" />
+          <NavigationProperty Name="StanyUpraw" Relationship="Self.FK__StanyUpra__idUpr__7F2BE32F" FromRole="Uprawy" ToRole="StanyUpraw" />
+        </EntityType>
+        <EntityType Name="Zasób">
+          <Key>
+            <PropertyRef Name="idZasób" />
+          </Key>
+          <Property Name="idZasób" Type="Int32" Nullable="false" />
+          <Property Name="NazwaZasobu" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="idProducent" Type="Int32" />
+          <NavigationProperty Name="Magazyn" Relationship="Self.FK__Zasób__idZasób__0A9D95DB" FromRole="Zasób" ToRole="Magazyn" />
+          <NavigationProperty Name="PraceZasoby" Relationship="Self.FK__PraceZaso__idZas__14270015" FromRole="Zasób" ToRole="PraceZasoby" />
+          <NavigationProperty Name="Producenci" Relationship="Self.FK__Zasób__idProduce__0B91BA14" FromRole="Zasób" ToRole="Producenci" />
+        </EntityType>
+        <Association Name="FK__Rosliny__idGatun__74AE54BC">
+          <End Role="Gatunki" Type="Self.Gatunki" Multiplicity="0..1" />
+          <End Role="Rosliny" Type="Self.Rosliny" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gatunki">
+              <PropertyRef Name="idGatunek" />
+            </Principal>
+            <Dependent Role="Rosliny">
+              <PropertyRef Name="idGatunek" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pola__idGleba__6C190EBB">
+          <End Role="Gleby" Type="Self.Gleby" Multiplicity="0..1" />
+          <End Role="Pola" Type="Self.Pola" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gleby">
+              <PropertyRef Name="idGleba" />
+            </Principal>
+            <Dependent Role="Pola">
+              <PropertyRef Name="idGleba" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Zasób__idZasób__0A9D95DB">
+          <End Role="Magazyn" Type="Self.Magazyn" Multiplicity="1" />
+          <End Role="Zasób" Type="Self.Zasób" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Magazyn">
+              <PropertyRef Name="idEwidencja" />
+            </Principal>
+            <Dependent Role="Zasób">
+              <PropertyRef Name="idZasób" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pola__idObszar__6B24EA82">
+          <End Role="Obszary" Type="Self.Obszary" Multiplicity="0..1" />
+          <End Role="Pola" Type="Self.Pola" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Obszary">
+              <PropertyRef Name="idObszar" />
+            </Principal>
+            <Dependent Role="Pola">
+              <PropertyRef Name="idObszar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Rosliny__idOdmia__75A278F5">
+          <End Role="Odmiany" Type="Self.Odmiany" Multiplicity="0..1" />
+          <End Role="Rosliny" Type="Self.Rosliny" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Odmiany">
+              <PropertyRef Name="idOdmiana" />
+            </Principal>
+            <Dependent Role="Rosliny">
+              <PropertyRef Name="idOdmiana" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Rosliny__idOkres__76969D2E">
+          <End Role="Okresowosci" Type="Self.Okresowosci" Multiplicity="0..1" />
+          <End Role="Rosliny" Type="Self.Rosliny" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Okresowosci">
+              <PropertyRef Name="idOkresowosc" />
+            </Principal>
+            <Dependent Role="Rosliny">
+              <PropertyRef Name="idOkresowosc" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Uprawy__idPole__7B5B524B">
+          <End Role="Pola" Type="Self.Pola" Multiplicity="0..1" />
+          <End Role="Uprawy" Type="Self.Uprawy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pola">
+              <PropertyRef Name="idPole" />
+            </Principal>
+            <Dependent Role="Uprawy">
+              <PropertyRef Name="idPole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PracePolo__idPol__0E6E26BF">
+          <End Role="Uprawy" Type="Self.Uprawy" Multiplicity="0..1" />
+          <End Role="PracePolowe" Type="Self.PracePolowe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Uprawy">
+              <PropertyRef Name="idUprawa" />
+            </Principal>
+            <Dependent Role="PracePolowe">
+              <PropertyRef Name="idPoleUprawa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PracePolo__idPra__10566F31">
+          <End Role="RodzajePrac" Type="Self.RodzajePrac" Multiplicity="0..1" />
+          <End Role="PracePolowe" Type="Self.PracePolowe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RodzajePrac">
+              <PropertyRef Name="idPraca" />
+            </Principal>
+            <Dependent Role="PracePolowe">
+              <PropertyRef Name="idPraca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PracePolo__idWyk__0F624AF8">
+          <End Role="Pracownicy" Type="Self.Pracownicy" Multiplicity="0..1" />
+          <End Role="PracePolowe" Type="Self.PracePolowe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pracownicy">
+              <PropertyRef Name="idPracownik" />
+            </Principal>
+            <Dependent Role="PracePolowe">
+              <PropertyRef Name="idWykonawca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PraceZaso__idPra__1332DBDC">
+          <End Role="PracePolowe" Type="Self.PracePolowe" Multiplicity="0..1" />
+          <End Role="PraceZasoby" Type="Self.PraceZasoby" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PracePolowe">
+              <PropertyRef Name="idPracaPolowa" />
+            </Principal>
+            <Dependent Role="PraceZasoby">
+              <PropertyRef Name="idPracaPolowa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PraceZaso__idZas__14270015">
+          <End Role="Zasób" Type="Self.Zasób" Multiplicity="0..1" />
+          <End Role="PraceZasoby" Type="Self.PraceZasoby" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zasób">
+              <PropertyRef Name="idZasób" />
+            </Principal>
+            <Dependent Role="PraceZasoby">
+              <PropertyRef Name="idZasób" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Zasób__idProduce__0B91BA14">
+          <End Role="Producenci" Type="Self.Producenci" Multiplicity="0..1" />
+          <End Role="Zasób" Type="Self.Zasób" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producenci">
+              <PropertyRef Name="idProducent" />
+            </Principal>
+            <Dependent Role="Zasób">
+              <PropertyRef Name="idProducent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Uprawy__idRoslin__7C4F7684">
+          <End Role="Rosliny" Type="Self.Rosliny" Multiplicity="0..1" />
+          <End Role="Uprawy" Type="Self.Uprawy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rosliny">
+              <PropertyRef Name="idRoslina" />
+            </Principal>
+            <Dependent Role="Uprawy">
+              <PropertyRef Name="idRoslina" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StanyUpra__idSta__00200768">
+          <End Role="StanyPola" Type="Self.StanyPola" Multiplicity="0..1" />
+          <End Role="StanyUpraw" Type="Self.StanyUpraw" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StanyPola">
+              <PropertyRef Name="idStan" />
+            </Principal>
+            <Dependent Role="StanyUpraw">
+              <PropertyRef Name="idStan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__StanyUpra__idUpr__7F2BE32F">
+          <End Role="Uprawy" Type="Self.Uprawy" Multiplicity="0..1" />
+          <End Role="StanyUpraw" Type="Self.StanyUpraw" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Uprawy">
+              <PropertyRef Name="idUprawa" />
+            </Principal>
+            <Dependent Role="StanyUpraw">
+              <PropertyRef Name="idUprawa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="zarzadzanieUprawami2Entities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Gatunki" EntityType="Self.Gatunki" />
+          <EntitySet Name="Gleby" EntityType="Self.Gleby" />
+          <EntitySet Name="Magazyn" EntityType="Self.Magazyn" />
+          <EntitySet Name="Obszary" EntityType="Self.Obszary" />
+          <EntitySet Name="Odmiany" EntityType="Self.Odmiany" />
+          <EntitySet Name="Okresowosci" EntityType="Self.Okresowosci" />
+          <EntitySet Name="Pola" EntityType="Self.Pola" />
+          <EntitySet Name="PracePolowe" EntityType="Self.PracePolowe" />
+          <EntitySet Name="PraceZasoby" EntityType="Self.PraceZasoby" />
+          <EntitySet Name="Pracownicy" EntityType="Self.Pracownicy" />
+          <EntitySet Name="Producenci" EntityType="Self.Producenci" />
+          <EntitySet Name="RodzajePrac" EntityType="Self.RodzajePrac" />
+          <EntitySet Name="Rosliny" EntityType="Self.Rosliny" />
+          <EntitySet Name="StanyPola" EntityType="Self.StanyPola" />
+          <EntitySet Name="StanyUpraw" EntityType="Self.StanyUpraw" />
+          <EntitySet Name="Uprawy" EntityType="Self.Uprawy" />
+          <EntitySet Name="Zasób" EntityType="Self.Zasób" />
+          <AssociationSet Name="FK__Rosliny__idGatun__74AE54BC" Association="Self.FK__Rosliny__idGatun__74AE54BC">
+            <End Role="Gatunki" EntitySet="Gatunki" />
+            <End Role="Rosliny" EntitySet="Rosliny" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pola__idGleba__6C190EBB" Association="Self.FK__Pola__idGleba__6C190EBB">
+            <End Role="Gleby" EntitySet="Gleby" />
+            <End Role="Pola" EntitySet="Pola" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Zasób__idZasób__0A9D95DB" Association="Self.FK__Zasób__idZasób__0A9D95DB">
+            <End Role="Magazyn" EntitySet="Magazyn" />
+            <End Role="Zasób" EntitySet="Zasób" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pola__idObszar__6B24EA82" Association="Self.FK__Pola__idObszar__6B24EA82">
+            <End Role="Obszary" EntitySet="Obszary" />
+            <End Role="Pola" EntitySet="Pola" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rosliny__idOdmia__75A278F5" Association="Self.FK__Rosliny__idOdmia__75A278F5">
+            <End Role="Odmiany" EntitySet="Odmiany" />
+            <End Role="Rosliny" EntitySet="Rosliny" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rosliny__idOkres__76969D2E" Association="Self.FK__Rosliny__idOkres__76969D2E">
+            <End Role="Okresowosci" EntitySet="Okresowosci" />
+            <End Role="Rosliny" EntitySet="Rosliny" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Uprawy__idPole__7B5B524B" Association="Self.FK__Uprawy__idPole__7B5B524B">
+            <End Role="Pola" EntitySet="Pola" />
+            <End Role="Uprawy" EntitySet="Uprawy" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PracePolo__idPol__0E6E26BF" Association="Self.FK__PracePolo__idPol__0E6E26BF">
+            <End Role="Uprawy" EntitySet="Uprawy" />
+            <End Role="PracePolowe" EntitySet="PracePolowe" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PracePolo__idPra__10566F31" Association="Self.FK__PracePolo__idPra__10566F31">
+            <End Role="RodzajePrac" EntitySet="RodzajePrac" />
+            <End Role="PracePolowe" EntitySet="PracePolowe" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PracePolo__idWyk__0F624AF8" Association="Self.FK__PracePolo__idWyk__0F624AF8">
+            <End Role="Pracownicy" EntitySet="Pracownicy" />
+            <End Role="PracePolowe" EntitySet="PracePolowe" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PraceZaso__idPra__1332DBDC" Association="Self.FK__PraceZaso__idPra__1332DBDC">
+            <End Role="PracePolowe" EntitySet="PracePolowe" />
+            <End Role="PraceZasoby" EntitySet="PraceZasoby" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PraceZaso__idZas__14270015" Association="Self.FK__PraceZaso__idZas__14270015">
+            <End Role="Zasób" EntitySet="Zasób" />
+            <End Role="PraceZasoby" EntitySet="PraceZasoby" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Zasób__idProduce__0B91BA14" Association="Self.FK__Zasób__idProduce__0B91BA14">
+            <End Role="Producenci" EntitySet="Producenci" />
+            <End Role="Zasób" EntitySet="Zasób" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Uprawy__idRoslin__7C4F7684" Association="Self.FK__Uprawy__idRoslin__7C4F7684">
+            <End Role="Rosliny" EntitySet="Rosliny" />
+            <End Role="Uprawy" EntitySet="Uprawy" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StanyUpra__idSta__00200768" Association="Self.FK__StanyUpra__idSta__00200768">
+            <End Role="StanyPola" EntitySet="StanyPola" />
+            <End Role="StanyUpraw" EntitySet="StanyUpraw" />
+          </AssociationSet>
+          <AssociationSet Name="FK__StanyUpra__idUpr__7F2BE32F" Association="Self.FK__StanyUpra__idUpr__7F2BE32F">
+            <End Role="Uprawy" EntitySet="Uprawy" />
+            <End Role="StanyUpraw" EntitySet="StanyUpraw" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="zarzadzanieUprawami2ModelStoreContainer" CdmEntityContainer="zarzadzanieUprawami2Entities1">
+          <EntitySetMapping Name="Gatunki">
+            <EntityTypeMapping TypeName="zarzadzanieUprawami2Model.Gatunki">
+              <MappingFragment StoreEntitySet="Gatunki">
+                <ScalarProperty Name="idGatunek" ColumnName="idGatunek" />
+                <ScalarProperty Name="nazwa" ColumnName="nazwa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Gleby">
+            <EntityTypeMapping TypeName="zarzadzanieUprawami2Model.Gleby">
+              <MappingFragment StoreEntitySet="Gleby">
+                <ScalarProperty Name="idGleba" ColumnName="idGleba" />
+                <ScalarProperty Name="rodzaj" ColumnName="rodzaj" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Magazyn">
+            <EntityTypeMapping TypeName="zarzadzanieUprawami2Model.Magazyn">
+              <MappingFragment StoreEntitySet="Magazyn">
+                <ScalarProperty Name="idEwidencja" ColumnName="idEwidencja" />
+                <ScalarProperty Name="idZasób" ColumnName="idZasób" />
+                <ScalarProperty Name="ilosc" ColumnName="ilosc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Obszary">
+            <EntityTypeMapping TypeName="zarzadzanieUprawami2Model.Obszary">
+              <MappingFragment StoreEntitySet="Obszary">
+                <ScalarProperty Name="idObszar" ColumnName="idObszar" />
+                <ScalarProperty Name="powierzchniaHa" ColumnName="powierzchniaHa" />
+                <ScalarProperty Name="szer_geo" ColumnName="szer_geo" />
+                <ScalarProperty Name="dl_geo" ColumnName="dl_geo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Odmiany">
+            <EntityTypeMapping TypeName="zarzadzanieUprawami2Model.Odmiany">
+              <MappingFragment StoreEntitySet="Odmiany">
+                <ScalarProperty Name="idOdmiana" ColumnName="idOdmiana" />
+                <ScalarProperty Name="nazwa" ColumnName="nazwa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Okresowosci">
+            <EntityTypeMapping TypeName="zarzadzanieUprawami2Model.Okresowosci">
+              <MappingFragment StoreEntitySet="Okresowosci">
+                <ScalarProperty Name="idOkresowosc" ColumnName="idOkresowosc" />
+                <ScalarProperty Name="rodzaj" ColumnName="rodzaj" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pola">
+            <EntityTypeMapping TypeName="zarzadzanieUprawami2Model.Pola">
+              <MappingFragment StoreEntitySet="Pola">
+                <ScalarProperty Name="idPole" ColumnName="idPole" />
+                <ScalarProperty Name="idObszar" ColumnName="idObszar" />
+                <ScalarProperty Name="klasa" ColumnName="klasa" />
+                <ScalarProperty Name="idGleba" ColumnName="idGleba" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PracePolowe">
+            <EntityTypeMapping TypeName="zarzadzanieUprawami2Model.PracePolowe">
+              <MappingFragment StoreEntitySet="PracePolowe">
+                <ScalarProperty Name="idPracaPolowa" ColumnName="idPracaPolowa" />
+                <ScalarProperty Name="idPoleUprawa" ColumnName="idPoleUprawa" />
+                <ScalarProperty Name="idWykonawca" ColumnName="idWykonawca" />
+                <ScalarProperty Name="idPraca" ColumnName="idPraca" />
+                <ScalarProperty Name="dataWykonanejPracy" ColumnName="dataWykonanejPracy" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PraceZasoby">
+            <EntityTypeMapping TypeName="zarzadzanieUprawami2Model.PraceZasoby">
+              <MappingFragment StoreEntitySet="PraceZasoby">
+                <ScalarProperty Name="idPracaZasób" ColumnName="idPracaZasób" />
+                <ScalarProperty Name="idPracaPolowa" ColumnName="idPracaPolowa" />
+                <ScalarProperty Name="idZasób" ColumnName="idZasób" />
+                <ScalarProperty Name="ilośćZużytegoZasobu" ColumnName="ilośćZużytegoZasobu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pracownicy">
+            <EntityTypeMapping TypeName="zarzadzanieUprawami2Model.Pracownicy">
+              <MappingFragment StoreEntitySet="Pracownicy">
+                <ScalarProperty Name="idPracownik" ColumnName="idPracownik" />
+                <ScalarProperty Name="imię" ColumnName="imię" />
+                <ScalarProperty Name="nazwisko" ColumnName="nazwisko" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Producenci">
+            <EntityTypeMapping TypeName="zarzadzanieUprawami2Model.Producenci">
+              <MappingFragment StoreEntitySet="Producenci">
+                <ScalarProperty Name="idProducent" ColumnName="idProducent" />
+                <ScalarProperty Name="nazwa" ColumnName="nazwa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RodzajePrac">
+            <EntityTypeMapping TypeName="zarzadzanieUprawami2Model.RodzajePrac">
+              <MappingFragment StoreEntitySet="RodzajePrac">
+                <ScalarProperty Name="idPraca" ColumnName="idPraca" />
+                <ScalarProperty Name="nazwa" ColumnName="nazwa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rosliny">
+            <EntityTypeMapping TypeName="zarzadzanieUprawami2Model.Rosliny">
+              <MappingFragment StoreEntitySet="Rosliny">
+                <ScalarProperty Name="idRoslina" ColumnName="idRoslina" />
+                <ScalarProperty Name="idGatunek" ColumnName="idGatunek" />
+                <ScalarProperty Name="idOdmiana" ColumnName="idOdmiana" />
+                <ScalarProperty Name="idOkresowosc" ColumnName="idOkresowosc" />
+                <ScalarProperty Name="doplatyHa" ColumnName="doplatyHa" />
+                <ScalarProperty Name="siewKgHa" ColumnName="siewKgHa" />
+                <ScalarProperty Name="zbiorKgHa" ColumnName="zbiorKgHa" />
+                <ScalarProperty Name="wartoscKg" ColumnName="wartoscKg" />
+                <ScalarProperty Name="kosztOchronyHa" ColumnName="kosztOchronyHa" />
+                <ScalarProperty Name="koszNawozuHa" ColumnName="koszNawozuHa" />
+                <ScalarProperty Name="kosztZbioruHa" ColumnName="kosztZbioruHa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StanyPola">
+            <EntityTypeMapping TypeName="zarzadzanieUprawami2Model.StanyPola">
+              <MappingFragment StoreEntitySet="StanyPola">
+                <ScalarProperty Name="idStan" ColumnName="idStan" />
+                <ScalarProperty Name="nazwa" ColumnName="nazwa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StanyUpraw">
+            <EntityTypeMapping TypeName="zarzadzanieUprawami2Model.StanyUpraw">
+              <MappingFragment StoreEntitySet="StanyUpraw">
+                <ScalarProperty Name="idUprawaStan" ColumnName="idUprawaStan" />
+                <ScalarProperty Name="idUprawa" ColumnName="idUprawa" />
+                <ScalarProperty Name="idStan" ColumnName="idStan" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Uprawy">
+            <EntityTypeMapping TypeName="zarzadzanieUprawami2Model.Uprawy">
+              <MappingFragment StoreEntitySet="Uprawy">
+                <ScalarProperty Name="idUprawa" ColumnName="idUprawa" />
+                <ScalarProperty Name="idPole" ColumnName="idPole" />
+                <ScalarProperty Name="idRoslina" ColumnName="idRoslina" />
+                <ScalarProperty Name="dataPoczatkowa" ColumnName="dataPoczatkowa" />
+                <ScalarProperty Name="dataKoncowa" ColumnName="dataKoncowa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Zasób">
+            <EntityTypeMapping TypeName="zarzadzanieUprawami2Model.Zasób">
+              <MappingFragment StoreEntitySet="Zasób">
+                <ScalarProperty Name="idZasób" ColumnName="idZasób" />
+                <ScalarProperty Name="NazwaZasobu" ColumnName="NazwaZasobu" />
+                <ScalarProperty Name="idProducent" ColumnName="idProducent" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
